@@ -16,9 +16,20 @@ class ElasticClient:
     logger = logging.getLogger("elasticsearch")
     logger.setLevel("ERROR")
 
-    def __init__(self, elasticURL: str):
+    def __init__(self, elasticURL: str, selfSigned: bool, elasticApiKey: str = None):
         try:
-            self.es = elasticsearch.Elasticsearch(elasticURL, timeout=5, max_retries=1)
+            # TODO: check requests version and add to Pipfile
+            if selfSigned:
+                # See: https://elasticsearch-py.readthedocs.io/en/master/transports.html
+                if elasticApiKey:
+                    self.es = elasticsearch.Elasticsearch(elasticURL, timeout=5, max_retries=1, connection_class=elastic.RequestsHttpConnection, use_ssl=True, verify_certs=False, api_key=elasticApiKey)
+                else:
+                    self.es = elasticsearch.Elasticsearch(elasticURL, timeout=5, max_retries=1, connection_class=elastic.RequestsHttpConnection, use_ssl=True, verify_certs=False)
+            # TODO: check if it is a https url, set `use_ssl=True if so`
+            if elasticApiKey:
+                self.es = elasticsearch.Elasticsearch(elasticURL, timeout=5, max_retries=1, api_key=elasticApiKey)
+            else:
+                self.es = elasticsearch.Elasticsearch(elasticURL, timeout=5, max_retries=1)
             self.status = self._ping()
             if self.status:
                 self.esversion = semver.VersionInfo.parse(

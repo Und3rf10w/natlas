@@ -9,8 +9,8 @@ class ElasticInterface:
     client = None
     indices = None
 
-    def __init__(self, elasticUrl: str, basename: str = "nmap"):
-        self.client = ElasticClient(elasticUrl)
+    def __init__(self, elasticUrl: str, basename: str = "nmap", selfSigned: bool = False, apiKey: str = None):
+        self.client = ElasticClient(elasticUrl, selfSigned, apiKey)
         self.indices = ElasticIndices(self.client, basename)
 
     def search(
