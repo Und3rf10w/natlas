@@ -22,9 +22,9 @@ class ElasticClient:
             if selfSigned:
                 # See: https://elasticsearch-py.readthedocs.io/en/master/transports.html
                 if elasticApiKey:
-                    self.es = elasticsearch.Elasticsearch(elasticURL, timeout=5, max_retries=1, connection_class=elastic.RequestsHttpConnection, use_ssl=True, verify_certs=False, api_key=elasticApiKey)
+                    self.es = elasticsearch.Elasticsearch(elasticURL, timeout=5, max_retries=1, verify_certs=False, api_key=elasticApiKey)
                 else:
-                    self.es = elasticsearch.Elasticsearch(elasticURL, timeout=5, max_retries=1, connection_class=elastic.RequestsHttpConnection, use_ssl=True, verify_certs=False)
+                    self.es = elasticsearch.Elasticsearch(elasticURL, timeout=5, max_retries=1, verify_certs=False)
             # TODO: check if it is a https url, set `use_ssl=True if so`
             if elasticApiKey:
                 self.es = elasticsearch.Elasticsearch(elasticURL, timeout=5, max_retries=1, api_key=elasticApiKey)

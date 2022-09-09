@@ -32,7 +32,8 @@ webpack-manifest = "~=2.1.1"
 natlas-libnmap = "*"
 cyclicprng = "*"
 mysqlclient = "*"
-requests = "*"
+markupsafe = "==2.0.1"
+protobuf = "==3.20.0"
 
 [requires]
 python_version = "3.8"
