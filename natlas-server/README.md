@@ -45,6 +45,10 @@ FLASK_ENV=production
 # Data Stores
 #####
 ELASTICSEARCH_URL=http://172.17.0.2:9200
+# Whether or not elasticsearch is using a self signed certificate (allowing you to use https in ELASTICSEARCH_URL)
+ELASTIC_SELF_SIGNED=True
+# Base64 elasticsearch API key, comment out if you aren't using this
+ELASTIC_API_KEY=SSByZWFsbHkgaG9wZSB5b3UgYXJlbid0IHVzaW5nIHRoaXMga2V5
 
 # A mysql database via the mysqlclient driver
 #SQLALCHEMY_DATABASE_URI=mysql://natlas:password@172.18.0.5/natlas
